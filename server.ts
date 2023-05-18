@@ -1,10 +1,20 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import { Client, GatewayIntentBits } from "discord.js";
+import { Configuration, OpenAIApi } from "openai";
+
 dotenv.config();
 const app = express();
 const port = 8000;
 
+//openai
+const configuration = new Configuration({
+  organization: process.env.OPENAI_ORG,
+  apiKey: process.env.OPENAI_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
+//discord
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -12,21 +22,15 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
+
 client.on("messageCreate", async function (message) {
   try {
     if (message.author.bot) return;
-    console.log(message.content);
-    message.reply(`You said: ${message.content}`);
-  } catch (err) {}
+    message.reply(`Jah beda vodai`);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
 console.log("Its online");
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});

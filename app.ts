@@ -54,3 +54,14 @@
 
 // client.login(process.env.DISCORD_TOKEN);
 // console.log("Its online");
+
+// {
+
+//     content: 'Sweet is the memory of distant friends! Like the mellow rays of the departing sun, it falls tenderly, yet sadly, on the heart.',
+//     author: 'Washington Irving',
+//     tags: [ 'Friendship' ],
+//     authorSlug: 'washington-irving',
+//     length: 126,
+//     dateAdded: '2019-12-23',
+//     dateModified: '2023-04-14'
+//   }

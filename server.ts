@@ -1,20 +1,12 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import { Client, GatewayIntentBits } from "discord.js";
-import { Configuration, OpenAIApi } from "openai";
-import axios from "axios";
-import { PrismaClient } from "@prisma/client";
+import { addNewQuoteToDB, getDbData } from "./db.service";
+import { getQuoteFromApi } from "./api.service";
 
 dotenv.config();
 const app = express();
 const port = 8000;
-
-//openai
-const configuration = new Configuration({
-  organization: process.env.OPENAI_ORG,
-  apiKey: process.env.OPENAI_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 //discord
 const client = new Client({
@@ -24,52 +16,35 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
-//prisma
-const prisma = new PrismaClient();
 
 client.on("messageCreate", async function (message) {
   try {
     if (message.author.bot) return;
+    //get data from db
+    const getQuotesFromDB = await getDbData(message.content.toLowerCase());
 
-    const allQuotes = await prisma.quotes.findMany({
-      where: {
-        tags: {
-          contains: `${message.content.toLowerCase()}`,
-        },
-      },
-    });
-
-    console.dir(allQuotes);
-
-    const getQuote = await axios.get(
-      `https://api.quotable.io/quotes/random?tags=${message.content}`
-    );
-    //console.log(getQuote);
-
-    if (getQuote.data[0] == undefined) {
-      message.reply(`There is no quote related ${message.content} category`);
+    if (getQuotesFromDB) {
+      //if have data on db then return that data
+      const theQuote = `${getQuotesFromDB.content}\nAuthor: ${getQuotesFromDB.author} / Date: ${getQuotesFromDB.dateAdded}\nCategories: ${getQuotesFromDB.tags}`;
+      message.reply(`${theQuote}\n This quote came from db`);
       return;
     } else {
-      //prisma add
-      await prisma.quotes.create({
-        data: {
-          author: getQuote.data[0].author.toLowerCase(),
-          content: getQuote.data[0].content.toLowerCase(),
-          tags: getQuote.data[0].tags.join(", ").toLowerCase(),
-          dateAdded: getQuote.data[0].dateAdded.toLowerCase(),
-        },
-      });
+      //if have data on db then call api and get the data
+      const apiData = await getQuoteFromApi(message.content.toLowerCase());
+      if (apiData) {
+        //if have data on api then save to db and return
+        await addNewQuoteToDB(apiData);
 
-      //send to discord
-      const theQuote = `${getQuote.data[0].content}\nAuthor: ${
-        getQuote.data[0].author
-      } / Date: ${
-        getQuote.data[0].dateAdded
-      }\nCategories: ${getQuote.data[0].tags.join(", ")}`;
-
-      message.reply(`${theQuote}`);
-      //message.channel.send(`${theQuote}`);
-      return;
+        const theQuote = `${apiData.content}\nAuthor: ${
+          apiData.author
+        } / Date: ${apiData.dateAdded}\nCategories: ${apiData.tags.join(", ")}`;
+        message.reply(`${theQuote}`);
+        return;
+      } else {
+        //if api return no data
+        message.reply(`There is no quote related ${message.content} category`);
+        return;
+      }
     }
   } catch (err) {
     console.log(err);

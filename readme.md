@@ -5,14 +5,17 @@ Disquote is a TypeScript-based Discord bot developed with Node.js. It allows use
 ## Features
 
 - Request quotes based on different categories.
-- Easy-to-use Discord bot commands.
-- Fast and reliable responses.
+- Caching quotes in the database and retrieving from the API if not found.
 - Diverse collection of quotes.
 - PostgreSQL database integration with Prisma.
-- Deployment on Railway.
 - HTTP requests with Axios.
 - Environment variable management with dotenv.
-- Caching quotes in the database and retrieving from the API if not found.
+
+## Caching and API Integration
+
+The Disquote bot caches quotes in the PostgreSQL database. When a user requests a quote, the application first searches for a quote in the database based on the specified category. If there is no quote related to that category in the database, the application calls the external API.
+
+If the API returns a quote, the application saves it in the database and then returns the quote to the user. This caching mechanism ensures that subsequent requests for the same category can be served from the database without making unnecessary API calls.
 
 ## Installation
 
@@ -84,9 +87,3 @@ The Disquote bot supports the following categories for requesting quotes:
 | Gratitude     | Religion      | Wellness       |                |
 | Happiness     | Sadness       | Wisdom         |                |
 | Health        | Science       |                |                |
-
-## Caching and API Integration
-
-The Disquote bot caches quotes in the PostgreSQL database. When a user requests a quote, the application first searches for a quote in the database based on the specified category. If there is no quote related to that category in the database, the application calls the external API.
-
-If the API returns a quote, the application saves it in the database and then returns the quote to the user. This caching mechanism ensures that subsequent requests for the same category can be served from the database without making unnecessary API calls.

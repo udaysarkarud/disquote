@@ -36,21 +36,68 @@ To install and run Disquote on your local machine, follow these steps:
    npm install
    ```
 
-4. Install the required dependencies:
-
-   ```shell
-   npm install
-   ```
-
-5. Open the .env file and provide the necessary values for environment variables for Set the DATABASE_URL environment variable in the .env file with the connection URL.
-6. Migrate the database schema:
+4. Open the .env file and provide the necessary values for environment variables for Set the DATABASE_URL environment variable in the .env file with the connection URL.
+5. Migrate the database schema:
    ```shell
    npx prisma migrate dev
    ```
-7. Start the bot:
+6. Start the bot:
    ```shell
    npm run start
    ```
+
+## Usage
+
+Once the bot is running and connected to your Discord server, you can use the following commands to request quotes: <category> - Request a random quote based on the specified category. Replace <category> with the desired category, such as "inspiration", "love", "life", etc. For example, to request an Wisdom quote, you can type:
+
+```shell
+wisdom
+```
+
+## Available Categories
+
+The Disquote bot supports the following categories for requesting quotes:
+
+| Column 1      | Column 2       |
+| ------------- | -------------- |
+| Age           | History        |
+| Athletics     | Honor          |
+| Business      | Humor          |
+| Change        | Humorous       |
+| Character     | Imagination    |
+| Competition   | Inspirational  |
+| Conservative  | Knowledge      |
+| Courage       | Leadership     |
+| Creativity    | Life           |
+| Education     | Literature     |
+| Ethics        | Love           |
+| Failure       | Mathematics    |
+| Faith         | Motivational   |
+| Family        | Nature         |
+| Famous Quotes | Opportunity    |
+| Film          | Pain           |
+| Freedom       | Perseverance   |
+| Friendship    | Philosophy     |
+| Future        | Politics       |
+| Generosity    | Power Quotes   |
+| Genius        | Proverb        |
+| Gratitude     | Religion       |
+| Happiness     | Sadness        |
+| Health        | Science        |
+| History       | Self           |
+| Honor         | Self Help      |
+| Humor         | Social Justice |
+| Humorous      | Society        |
+| Imagination   | Spirituality   |
+| Inspirational | Sports         |
+| Knowledge     | Stupidity      |
+| Leadership    | Success        |
+| Life          | Technology     |
+| Time          | Tolerance      |
+| Truth         | Virtue         |
+| War           | Weakness       |
+| Wellness      | Wisdom         |
+| Work          | Work           |
 
 ## Caching and API Integration
 

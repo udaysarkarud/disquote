@@ -21,10 +21,38 @@ To install and run Disquote on your local machine, follow these steps:
 1. Clone the repository:
 
    ```shell
-   git clone <repository-url>
+   git clone https://github.com/udaysarkarud/disquote
    ```
 
-# Caching and API Integration
+2. Navigate to the project directory:
+
+   ```shell
+   cd disquote
+   ```
+
+3. Install the required dependencies:
+
+   ```shell
+   npm install
+   ```
+
+4. Install the required dependencies:
+
+   ```shell
+   npm install
+   ```
+
+5. Open the .env file and provide the necessary values for environment variables for Set the DATABASE_URL environment variable in the .env file with the connection URL.
+6. Migrate the database schema:
+   ```shell
+   npx prisma migrate dev
+   ```
+7. Start the bot:
+   ```shell
+   npm run start
+   ```
+
+## Caching and API Integration
 
 The Disquote bot caches quotes in the PostgreSQL database. When a user requests a quote, the application first searches for a quote in the database based on the specified category. If there is no quote related to that category in the database, the application calls the external API.
 

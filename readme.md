@@ -2,6 +2,10 @@
 
 Disquote is a TypeScript-based Discord bot developed with Node.js. It allows users to request quotes based on different categories. The bot integrates with a PostgreSQL database using Prisma and is deployed on Railway. It utilizes Axios for making HTTP requests to external APIs and utilizes dotenv for environment variable management.
 
+```shell
+https://discord.gg/a2ztXpvn
+```
+
 ## Features
 
 - Request quotes based on different categories.

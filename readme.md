@@ -58,46 +58,32 @@ wisdom
 
 The Disquote bot supports the following categories for requesting quotes:
 
-| Column 1      | Column 2       |
-| ------------- | -------------- |
-| Age           | History        |
-| Athletics     | Honor          |
-| Business      | Humor          |
-| Change        | Humorous       |
-| Character     | Imagination    |
-| Competition   | Inspirational  |
-| Conservative  | Knowledge      |
-| Courage       | Leadership     |
-| Creativity    | Life           |
-| Education     | Literature     |
-| Ethics        | Love           |
-| Failure       | Mathematics    |
-| Faith         | Motivational   |
-| Family        | Nature         |
-| Famous Quotes | Opportunity    |
-| Film          | Pain           |
-| Freedom       | Perseverance   |
-| Friendship    | Philosophy     |
-| Future        | Politics       |
-| Generosity    | Power Quotes   |
-| Genius        | Proverb        |
-| Gratitude     | Religion       |
-| Happiness     | Sadness        |
-| Health        | Science        |
-| History       | Self           |
-| Honor         | Self Help      |
-| Humor         | Social Justice |
-| Humorous      | Society        |
-| Imagination   | Spirituality   |
-| Inspirational | Sports         |
-| Knowledge     | Stupidity      |
-| Leadership    | Success        |
-| Life          | Technology     |
-| Time          | Tolerance      |
-| Truth         | Virtue         |
-| War           | Weakness       |
-| Wellness      | Wisdom         |
-| Work          | Work           |
+| Column 1      | Column 2      | Column 3       | Column 4       |
+| ------------- | ------------- | -------------- | -------------- |
+| Age           | History       | Philosophy     | Science        |
+| Athletics     | Honor         | Politics       | Self           |
+| Business      | Humor         | Power Quotes   | Self Help      |
+| Change        | Humorous      | Proverb        | Social Justice |
+| Character     | Imagination   | Religion       | Society        |
+| Competition   | Inspirational | Sadness        | Spirituality   |
+| Conservative  | Knowledge     | Science        | Sports         |
+| Courage       | Leadership    | Self           | Stupidity      |
+| Creativity    | Life          | Social Justice | Success        |
+| Education     | Literature    | Society        | Technology     |
+| Ethics        | Love          | Spirituality   | Time           |
+| Failure       | Mathematics   | Sports         | Tolerance      |
+| Faith         | Motivational  | Stupidity      | Truth          |
+| Family        | Nature        | Success        | Virtue         |
+| Famous Quotes | Opportunity   | Technology     | War            |
+| Film          | Pain          | Time           | Weakness       |
+| Freedom       | Perseverance  | Tolerance      | Wellness       |
+| Friendship    | Philosophy    | Truth          | Wisdom         |
+| Future        | Politics      | Virtue         | Work           |
+| Generosity    | Power Quotes  | War            |                |
+| Genius        | Proverb       | Weakness       |                |
+| Gratitude     | Religion      | Wellness       |                |
+| Happiness     | Sadness       | Wisdom         |                |
+| Health        | Science       |                |                |
 
 ## Caching and API Integration
 

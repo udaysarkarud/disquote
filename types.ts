@@ -16,3 +16,7 @@ export interface IAPIQuoteType {
   dateAdded: string;
   dateModified: string;
 }
+
+export interface GetUsersResponse {
+  data: IAPIQuoteType[];
+}

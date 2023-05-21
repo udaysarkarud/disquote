@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
-import { IQuoteType } from "./types";
+import { IQuoteType } from "../types";
 const prisma = new PrismaClient();
 
-//find data on db
+//find data on db and return that if found
 export const getDbData = async (
   params: string
 ): Promise<IQuoteType | undefined> => {
+  //get all quotes related user category
   const allQuotes = await prisma.quotes.findMany({
     where: {
       tags: {
@@ -13,6 +14,7 @@ export const getDbData = async (
       },
     },
   });
+  //randomly select one quote if there is more data than 5 otherwise return undefined
   const randomQuote =
     allQuotes.length > 5
       ? allQuotes[Math.floor(Math.random() * allQuotes.length)]
@@ -21,13 +23,13 @@ export const getDbData = async (
 };
 
 //Add to db
-export const addNewQuoteToDB = async (params: any) => {
+export const addNewQuoteToDB = async (params: IQuoteType): Promise<void> => {
   await prisma.quotes.create({
     data: {
-      author: params.author.toLowerCase(),
-      content: params.content.toLowerCase(),
-      tags: params.tags.join(", ").toLowerCase(),
-      dateAdded: params.dateAdded.toLowerCase(),
+      author: params.author,
+      content: params.content,
+      tags: params.tags,
+      dateAdded: params.dateAdded,
     },
   });
 };

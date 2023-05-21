@@ -1,12 +1,9 @@
-import express from "express";
 import * as dotenv from "dotenv";
 import { Client, GatewayIntentBits } from "discord.js";
-import { addNewQuoteToDB, getDbData } from "./db.service";
-import { getQuoteFromApi } from "./api.service";
-
+import { addNewQuoteToDB, getDbData } from "./modules/db.service";
+import { getQuoteFromApi } from "./modules/api.service";
+import { generateReply } from "./modules/reply.service";
 dotenv.config();
-const app = express();
-const port = 8000;
 
 //discord
 const client = new Client({
@@ -20,29 +17,33 @@ const client = new Client({
 client.on("messageCreate", async function (message) {
   try {
     if (message.author.bot) return;
-    //get data from db
-    const getQuotesFromDB = await getDbData(message.content.toLowerCase());
+
+    //request from User
+    const requestFromUser = message.content.toLowerCase();
+
+    //get quote from db
+    const getQuotesFromDB = await getDbData(requestFromUser);
 
     if (getQuotesFromDB) {
-      //if have data on db then return that data
-      const theQuote = `${getQuotesFromDB.content}\nAuthor: ${getQuotesFromDB.author} / Date: ${getQuotesFromDB.dateAdded}\nCategories: ${getQuotesFromDB.tags}`;
-      message.reply(`${theQuote}\n This quote came from db`);
+      //if have quote on db
+      message.reply(generateReply(getQuotesFromDB, "Database"));
       return;
     } else {
-      //if have data on db then call api and get the data
-      const apiData = await getQuoteFromApi(message.content.toLowerCase());
-      if (apiData) {
-        //if have data on api then save to db and return
-        await addNewQuoteToDB(apiData);
+      //if there have no quote on db than call api and get the quote
+      const getQuotesFromApi = await getQuoteFromApi(requestFromUser);
 
-        const theQuote = `${apiData.content}\nAuthor: ${
-          apiData.author
-        } / Date: ${apiData.dateAdded}\nCategories: ${apiData.tags.join(", ")}`;
-        message.reply(`${theQuote}`);
+      if (getQuotesFromApi) {
+        //if have quote on api then save to db and return that quote on reply
+
+        await addNewQuoteToDB(getQuotesFromApi);
+        message.reply(generateReply(getQuotesFromApi, "Api"));
         return;
       } else {
-        //if api return no data
-        message.reply(`There is no quote related ${message.content} category`);
+        //if there is no quote on the api
+
+        message.reply(
+          `There is no quote related to ${requestFromUser} category on api and database.`
+        );
         return;
       }
     }
